@@ -32,6 +32,11 @@
 #ifndef PROJECT_GRAPH_WRAPPER_H
 #define PROJECT_GRAPH_WRAPPER_H
 
+/**
+\file
+\brief GVGraph class declaration
+*/
+
 // System Includes
 #include <iostream>
 #include <graphviz/gvc.h>

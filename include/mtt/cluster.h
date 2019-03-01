@@ -34,7 +34,7 @@
 
 /**
 \file
-\brief Hypotheses cluster definition
+\brief Hypothesis cluster definition
 */
 
 // System Includes
