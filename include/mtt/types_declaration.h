@@ -1,0 +1,8 @@
+//
+// Created by pedro on 01-03-2019.
+//
+
+#ifndef PROJECT_TYPES_DECLARATION_H
+#define PROJECT_TYPES_DECLARATION_H
+
+#endif //PROJECT_TYPES_DECLARATION_H
