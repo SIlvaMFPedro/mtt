@@ -41,4 +41,66 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
+#include <mtt/measurement.h>
+#include <mtt/hypothesis.h>
+
+using namespace std;
+
+class Hypothesis;
+typedef boost::shared_ptr<Hypothesis> HypothesisPtr;
+
+class Measurement;
+typedef boost::shared_ptr<Measurement> MeasurementPtr;
+
+/**
+ * \brief Hypotheses cluster class
+ *
+ * This class contains the representation of a single hypotheses cluster. The cluster contains a set of associated measurements (assigned_measurements) and a set of assigned hypotheses (assigned_hypotheses). These two sets constitute the ambiguity problem and will be solved together, creating associations between the targets in the hypotheses and the measurements.
+ */
+class Cluster
+{
+public:
+    ///Id of the current cluster.
+    long id;
+    ///Measurements assigned to this cluster, these measurements are in conflict with the cluster targets
+    vector<MeasurementPtr> assigned_measurements;
+    ///Set of hypotheses belonging to the cluster
+    vector<HypothesisPtr> assigned_hypotheses;
+
+    ///Cluster constructor, variable initialization
+    Cluster();
+
+    ///Cluster destructor, no task
+    ~Cluster();
+
+    /**
+     * \brief Check if the cluster is a candidate for deletion
+     *
+     * Tests the number of hypotheses and their status. If there are non hypotheses or all hypotheses are dead this cluster is removed.
+     *
+     * \return true if the cluster is ready for deletion
+     */
+    bool isEmpty();
+
+    ///Print function
+    friend ostream& operator<<(ostream& o, Cluster& c);
+};
+
+///Shared pointer to the Cluster class
+typedef boost::shared_ptr<Cluster> ClusterPtr;
+
+/**
+ * \brief Compare two clusters
+ *
+ * This function is used to perform sorting operations.
+ * \param c1 first cluster
+ * \param c2 second cluster
+ * \return true if c2 id is larger that c1
+ */
+bool compareClusters(ClusterPtr c1,ClusterPtr c2);
+
+///Cluster vector print function
+ostream& operator<<(ostream& o,vector<ClusterPtr>& c);
+
+
 #endif //PROJECT_CLUSTER_H
