@@ -11,7 +11,34 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  sensor_msgs
+  geometry_msgs
+  message_generation
+  pcl_ros
+  atlascar_base
+  kfilter
+  colormap
+  pcl_conversions
+  laser_geometry
+  roslib
 )
+
+set(CMAKE_CXX_FLAGS "-std=c++0x")
+
+find_package(Eigen3 REQUIRED)
+find_package(GTK2 REQUIRED)
+
+find_package(PkgConfig REQUIRED)
+find_package(OpenCV REQUIRED)
+
+pkg_check_modules(GVC libgvc)   #sudo apt-get install libgraphviz-dev  #V. Santos, 22-Mar-2014
+
+if(GVC_FOUND)
+else()
+    message(WARNING "libgvc not found. Please do: sudo apt-get install libgraphviz-dev.")
+endif()
+
+add_definitions(-DHAVE_STRING_H)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -47,11 +74,12 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+   FILES
+   Target.msg
+   TargetList.msg
+   TargetListPC.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -68,10 +96,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+   sensor_msgs
+   geometry_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -103,10 +133,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES mtt
-#  CATKIN_DEPENDS roscpp rospy std_msgs
-#  DEPENDS system_lib
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime sensor_msgs geometry_msgs pcl_ros atlascar_base kfilter colormap pcl_conversions laser
+  DEPENDS Eigen kfilter colormap pcl_ros
 )
 
 ###########
@@ -116,8 +146,10 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -129,11 +161,30 @@ include_directories(
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(mtt mtt_generate_messages_cpp)
+add_dependencies(mtt_new_msg mtt_generate_messages_cpp)
+add_dependencies(line_fitting mtt_generate_messages_cpp)
+add_dependencies(log_recorder mtt_generate_messages_cpp)
+add_dependencies(planar_pc_generator mtt_generate_messages_cpp)
+add_dependencies(simple_planar_pc_generator_atlasmv mtt_generate_messages_cpp)
+add_dependencies(simple_planar_pc_generator mtt_generate_messages_cpp)
+add_dependencies(mtt_pedect mtt_generate_messages_cpp)
+add_dependencies(gnn mtt_generate_messages_cpp)
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/mtt_node.cpp)
+add_executable(mtt src/mtt.cpp src/mtt_clustering.cpp src/mtt_auxiliar.cpp src/mtt_association.cpp src/mtt_kalman.cpp)
+add_executable(mtt_new_msg src/mtt_new_msg.cpp src/mtt_clustering.cpp src/mtt_auxiliar.cpp src/mtt_association.cpp src/mtt_kalman.cpp)
+add_executable(line_fitting src/line_fitting.cpp)
+add_executable(log_recorder src/log_recorder.cpp)
+add_executable(planar_pc_generator src/planar_pc_generator.cpp)
+add_executable(simple_planar_pc_generator_atlasmv src/simple_planar_pc_generator_atlasmv.cpp)
+add_executable(simple_planar_pc_generator src/simple_planar_pc_generator.cpp)
+add_executable(mtt_pedect src/mtt_new_msg.cpp src/mtt_clustering.cpp src/mtt_auxiliar_pedect.cpp src/mtt_association.cpp src/mtt_kalman.cpp)
+add_executable(gnn src/gnn.cpp src/munkres.cpp src/k_best.cpp)
+# add_executable(demo src/demo.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -149,6 +200,41 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+target_link_libraries(mtt ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(mtt_new_msg  ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(line_fitting  ${catkin_LIBRARIES})
+target_link_libraries(log_recorder  ${catkin_LIBRARIES})
+target_link_libraries(simple_planar_pc_generator_atlasmv  ${catkin_LIBRARIES})
+target_link_libraries(simple_planar_pc_generator ${catkin_LIBRARIES})
+target_link_libraries(planar_pc_generator  ${catkin_LIBRARIES} ${Eigen3_LIBRARIES})
+target_link_libraries(mtt_pedect ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+target_link_libraries(gnn ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+# target_link_libraries(demo ${catkin_LIBRARIES})
+
+set(COMPILE_MHT false)
+
+if(COMPILE_MHT)
+    include_directories(${GTK2_INCLUDE_DIRS})
+    include_directories(${GVC_INCLUDE_DIRS})
+    include_directories(${catkin_INCLUDE_DIRS} include)
+
+    add_library(gvplugin_xgtk src/gvplugin_xgtk.cpp src/callbacks_mht.cpp src/graph_wrapper.cpp src/hypothesisTree.cpp)
+
+    target_link_libraries(gvplugin_xgtk ${GVC_LIBRARIES} ${GTK2_LIBRARIES} ${catkin_LIBRARIES} ${Eigen3_LIBRARIES})
+
+    add_library(munkres src/munkres.cpp src/matrix.cpp src/k_best.cpp)
+
+    add_executable(mht src/mht.cpp src/point.cpp src/measurement.cpp src/target.cpp src/metrics.cpp src/motionModel.cpp src/hypothesis.cpp src/cluster.cpp src/hypothesisTree.cpp src/mht_implementation.cpp)
+
+    add_dependencies(mht mtt_generate_messages_cpp)
+
+    target_link_libraries(mht gvplugin_xgtk munkres ${catkin_LIBRARIES} ${Eigen_LIBRARIES} ${GVC_LIBRARIES})
+
+    target_link_libraries(gnn munkres ${catkin_LIBRARIES} ${Eigen3_LIBRARIES} ${OpenCV_LIBRARIES})
+else()
+    message(WARNING "Will not complile the advanced mht module, there where changes to the graphviz library rendering the graph_wrapper unusable")
+endif()
 
 #############
 ## Install ##
