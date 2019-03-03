@@ -63,7 +63,7 @@ extern GVGraph*graph_context;
 extern hypothesisTreePtr htreePtr;
 
 extern "C" {
-extern int agrelabel_node(Agnode_t * n, char *newname);
+    extern int agrelabel_node(Agnode_t * n, char *newname);
 }
 
 ostream& operator<< (ostream &o, const pointf &i)
