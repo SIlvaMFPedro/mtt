@@ -39,7 +39,7 @@
 
 // System Includes
 #include <boost/shared_ptr.hpp>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Cholesky>
 #include <mtt/munkres.h>

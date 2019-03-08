@@ -42,7 +42,7 @@
 // System Includes
 #include <ros/ros.h>
 #include <kfilter/ekfilter.hpp>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Cholesky>
 #include <visualization_msgs/Marker.h>

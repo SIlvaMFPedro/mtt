@@ -50,7 +50,7 @@
 #include <pcl-1.8/pcl/kdtree/kdtree_flann.h>
 #include <pcl-1.8/pcl/surface/mls.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Cholesky>
 #include <iostream>

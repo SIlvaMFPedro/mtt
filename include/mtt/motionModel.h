@@ -37,7 +37,7 @@
 \brief Motion model class declaration
 */
 
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <mtt/nonholonomicEKFilter.h>
 

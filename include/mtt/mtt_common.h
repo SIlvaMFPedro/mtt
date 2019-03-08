@@ -46,10 +46,10 @@
 #include <opencv/cxcore.h>
 #include <opencv/cxcore.hpp>
 #include <signal.h>
-#include <pcl/point_types.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/kdtree/kdtree_flann.h>
-#include <pcl/surface/mls.h>
+#include <pcl-1.8/pcl/point_types.h>
+#include <pcl-1.8/pcl/io/pcd_io.h>
+#include <pcl-1.8/pcl/kdtree/kdtree_flann.h>
+#include <pcl-1.8/pcl/surface/mls.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>

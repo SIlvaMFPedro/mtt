@@ -41,7 +41,7 @@
 #include <boost/shared_ptr.hpp>
 #include <fstream>
 #include <iostream>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 
 using namespace std;

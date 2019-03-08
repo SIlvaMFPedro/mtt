@@ -49,7 +49,7 @@ For additional info on the Mht algorithm check \ref mhtpage "here".
 #include <pcl-1.8/pcl/io/pcd_io.h>
 #include <pcl-1.8/pcl/kdtree/kdtree_flann.h>
 #include <pcl-1.8/pcl/surface/mls.h>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Cholesky>
 #include <visualization_msgs/Marker.h>

@@ -48,7 +48,7 @@
 #include <visualization_msgs/MarkerArray.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/format.hpp>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Cholesky>
 #include <kfilter/ekfilter.hpp>

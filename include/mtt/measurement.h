@@ -42,7 +42,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <mtt/point.h>
 #include <mtt/cluster.h>

@@ -34,7 +34,7 @@
 #include <list>
 #include <utility>
 #include <vector>
-#include <eigen3/Eigen>
+//#include <eigen3/Eigen>
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/Cholesky>
 #include <boost/shared_ptr.hpp>

@@ -23,7 +23,7 @@
 #include <boost/lexical_cast.hpp>
 #include <mtt/k_best.h>
 #include <map>
-#include <vector
+#include <vector>
 #include <cmath>
 
 using namespace std;
@@ -38,6 +38,7 @@ using Eigen::VectorXd;
 
 typedef Kalman::EKFilter<double,0,false,false,false>::Vector kVector;
 typedef Kalman::EKFilter<double,0,false,false,false>::Matrix kMatrix;
+
 
 class Point: public pcl::PointXYZ
 {
