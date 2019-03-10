@@ -40,7 +40,6 @@
 // System Includes
 #include <vector>
 #include <boost/shared_ptr.hpp>
-
 #include <mtt/measurement.h>
 #include <mtt/hypothesis.h>
 
@@ -59,31 +58,31 @@ typedef boost::shared_ptr<Measurement> MeasurementPtr;
  */
 class Cluster
 {
-public:
-    ///Id of the current cluster.
-    long id;
-    ///Measurements assigned to this cluster, these measurements are in conflict with the cluster targets
-    vector<MeasurementPtr> assigned_measurements;
-    ///Set of hypotheses belonging to the cluster
-    vector<HypothesisPtr> assigned_hypotheses;
+    public:
+        ///Id of the current cluster.
+        long id;
+        ///Measurements assigned to this cluster, these measurements are in conflict with the cluster targets
+        vector<MeasurementPtr> assigned_measurements;
+        ///Set of hypotheses belonging to the cluster
+        vector<HypothesisPtr> assigned_hypotheses;
 
-    ///Cluster constructor, variable initialization
-    Cluster();
+        ///Cluster constructor, variable initialization
+        Cluster();
 
-    ///Cluster destructor, no task
-    ~Cluster();
+        ///Cluster destructor, no task
+        ~Cluster();
 
-    /**
-     * \brief Check if the cluster is a candidate for deletion
-     *
-     * Tests the number of hypotheses and their status. If there are non hypotheses or all hypotheses are dead this cluster is removed.
-     *
-     * \return true if the cluster is ready for deletion
-     */
-    bool isEmpty();
+        /**
+         * \brief Check if the cluster is a candidate for deletion
+         *
+         * Tests the number of hypotheses and their status. If there are non hypotheses or all hypotheses are dead this cluster is removed.
+         *
+         * \return true if the cluster is ready for deletion
+         */
+        bool isEmpty();
 
-    ///Print function
-    friend ostream& operator<<(ostream& o, Cluster& c);
+        ///Print function
+        friend ostream& operator<<(ostream& o, Cluster& c);
 };
 
 ///Shared pointer to the Cluster class
