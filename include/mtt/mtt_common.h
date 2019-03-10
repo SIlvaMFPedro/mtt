@@ -45,6 +45,9 @@
 #include <opencv/cv.h>
 #include <opencv/cxcore.h>
 #include <opencv/cxcore.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/calib3d/calib3d.hpp>
 #include <signal.h>
 #include <pcl-1.8/pcl/point_types.h>
 #include <pcl-1.8/pcl/io/pcd_io.h>
