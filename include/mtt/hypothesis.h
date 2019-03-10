@@ -41,8 +41,8 @@
 #include <mtt/target.h>
 
 class Target;
-///Shared pointer to the Target class
-typedef boost::shared_ptr<Target> TargetPtr;
+        ///Shared pointer to the Target class
+        typedef boost::shared_ptr<Target> TargetPtr;
 
 ///Possible hypothesis status
 enum hypotheses_status {NORMAL=0, MOVED, FORCED_PARENT, PARENT, DEAD, DEAD_FORCED_PARENT,ERROR};
