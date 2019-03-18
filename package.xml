@@ -71,8 +71,8 @@
   <build_depend>pcl_ros</build_depend>
   <build_export_depend>pcl_ros</build_export_depend>
 
-  <build_depend>atlascar_base</build_depend>
-  <build_export_depend>atlascar_base</build_export_depend>
+  <!--<build_depend>atlascar_base</build_depend>-->
+  <!--<build_export_depend>atlascar_base</build_export_depend>-->
 
   <build_depend>kfilter</build_depend>
   <build_export_depend>kfilter</build_export_depend>

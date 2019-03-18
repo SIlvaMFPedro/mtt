@@ -5,6 +5,7 @@
 // System Includes
 #include <iostream>
 #include <ros/ros.h>
+#include <ros/package.h>
 #include <pcl-1.8/pcl/point_types.h>
 #include <pcl-1.8/pcl/io/pcd_io.h>
 #include <pcl-1.8/pcl/kdtree/kdtree_flann.h>
@@ -551,7 +552,9 @@ class GNN
                 int fpos = parameters_url.find("/",pos+package_tag.length());
                 string package = parameters_url.substr(pos+package_tag.length(),fpos-(pos+package_tag.length()));
 
-                string package_path = ros::package::getSharedPath(package);
+                string package_path = ros::package::getPath(package);
+//                string package_path = ros::package::getSharedPath(package);
+//                string package_path = "/home/pedro/catkin_ws_atlas/src/mtt";
                 parameters_url.replace(pos,fpos-pos,package_path);
             }
 

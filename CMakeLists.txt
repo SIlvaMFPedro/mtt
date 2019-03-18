@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   message_generation
   pcl_ros
-  atlascar_base
+#  atlascar_base
   kfilter
   colormap
   pcl_conversions
@@ -29,7 +29,7 @@ find_package(Eigen3 REQUIRED)
 find_package(GTK2 REQUIRED)
 
 find_package(PkgConfig REQUIRED)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED EXACT 3.2)
 
 pkg_check_modules(GVC libgvc)   #sudo apt-get install libgraphviz-dev  #V. Santos, 22-Mar-2014
 
@@ -135,7 +135,8 @@ generate_messages(
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES mtt
-  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime sensor_msgs geometry_msgs pcl_ros atlascar_base kfilter colormap pcl_conversions laser_geometry roslib
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime sensor_msgs geometry_msgs pcl_ros kfilter colormap pcl_conversions laser_geometry roslib
+#        CATKIN_DEPENDS roscpp rospy std_msgs message_runtime sensor_msgs geometry_msgs pcl_ros atlascar_base kfilter colormap pcl_conversions laser_geometry roslib CATKIN_DEPENDS roscpp rospy std_msgs message_runtime sensor_msgs geometry_msgs pcl_ros atlascar_base kfilter colormap pcl_conversions laser_geometry roslib
   DEPENDS Eigen kfilter colormap pcl_ros
 )
 
