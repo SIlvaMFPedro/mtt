@@ -21,6 +21,7 @@
 #include <mtt/TargetList.h>
 #include <kfilter/ekfilter.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/format.hpp>
 #include <mtt/k_best.h>
 #include <map>
 #include <vector>
@@ -550,7 +551,7 @@ class GNN
                 int fpos = parameters_url.find("/",pos+package_tag.length());
                 string package = parameters_url.substr(pos+package_tag.length(),fpos-(pos+package_tag.length()));
 
-                string package_path = ros::package::getPath(package);
+                string package_path = ros::package::getSharedPath(package);
                 parameters_url.replace(pos,fpos-pos,package_path);
             }
 
